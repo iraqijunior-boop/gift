@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title> Christmas Website</title>
+
+<style>
+body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(#b30000, #004d00);
+    color: white;
+    margin: 0;
+}
+
+header {
+    text-align: center;
+    padding: 20px;
+    font-size: 32px;
+    font-weight: bold;
+}
+
+nav {
+    display: flex;
+    justify-content: center;
+    background: rgba(0,0,0,0.4);
+}
+
+nav button {
+    background: none;
+    border: none;
+    color: white;
+    padding: 15px 25px;
+    cursor: pointer;
+    font-size: 18px;
+}
+
+nav button:hover {
+    background: rgba(255,255,255,0.2);
+}
+
+/* SECTIONS */
+section {
+    display: none;
+    padding: 30px;
+    text-align: center;
+}
+
+section.active {
+    display: block;
+}
+
+.media {
+    margin: 20px 0;
+}
+
+img, video, iframe {
+    width: 300px;
+    border-radius: 10px;
+}
+
+/* ?? CŒURS */
+.heart {
+    position: fixed;
+    top: -10px;
+    font-size: 20px;
+    animation: fall linear forwards;
+    z-index: 9999;
+    color: red;
+    font-family: "Segoe UI Symbol", "Segoe UI Emoji", Arial, sans-serif;
+}
+@keyframes fall {
+    to {
+        transform: translateY(100vh);
+        opacity: 0;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header> Merry Christmas my beloved </header>
+
+<nav>
+    <button onclick="openTab('photos')">Our best photos</button>
+    <button onclick="openTab('letter')">Little letter</button>
+    <button onclick="openTab('surprise')">Final surprise</button>
+</nav>
+
+<!-- ONGLET 1 -->
+<section id="photos">
+    <h2>Our first evers</h2>
+
+    <div class="media">
+        <h3>Our first photo together</h3>
+        <img src="first.jpeg">
+    </div>
+
+    <div class="media">
+        <h3>Our first photo after the little break</h3>
+        <img src="firstpicback.jpeg">
+    </div>
+
+    <div class="media">
+        <h3>Our first caught kiss (I think)</h3>
+        <video controls>
+            <source src="firstcaughtkiss.mp4" type="video/mp4">
+        </video>
+    </div>
+</section>
+
+<!-- ONGLET 2 -->
+<section id="letter">
+    <h2>?? A Special Letter</h2>
+
+    <p>Please enter the password to open the letter (hint: important day)</p>
+
+    <input type="password" id="passwordInput" placeholder="Enter password">
+    <br><br>
+    <button onclick="checkPassword()">Open the letter</button>
+
+    <p id="passwordMessage" style="margin-top:15px;"></p>
+
+    <div id="letterContent" style="display:none; margin-top:20px;">
+        <p>
+            Dear angel, I don’t have much to say in this letter because you already kinda know everything about my feelings<br><br>
+            but I can still remind you of how much I love you and how much I have enjoyed speaking to you again over these last couple of months, <br>
+            I can’t even imagine spending my day without talking to you it’s really insane just how much you mean to me and that’s why I did all of this,<br>
+            to show you how much you mean to me my love. Thank you for being in my life,<br>
+            I will love you forever.<br>
+            Your lover Omar.<br><br>
+        </p>
+    </div>
+</section>
+
+<!-- ONGLET 3 -->
+<section id="surprise">
+    <h2>And now for the final surprise:</h2>
+
+    <h3>Our 2025 song YAYYY: DARK RED, if yk yk (y'a peut etre un ptit beug d'affichage mais tu peux tjr l'écouter haha)</h3>
+    
+    <iframe 
+        src="https://www.youtube.com/embed/Q6FarZpy67M?si=4zdF2hnUsoQFcOYl" 
+        allowfullscreen>
+    </iframe>
+</section>
+
+<script>
+// NAVIGATION
+function openTab(tabId) {
+    const sections = document.querySelectorAll("section");
+    sections.forEach(sec => sec.classList.remove("active"));
+    document.getElementById(tabId).classList.add("active");
+}
+
+// ONGLET PAR DÉFAUT
+openTab("photos");
+
+// MOT DE PASSE
+function checkPassword() {
+    const correctPassword = "january18";
+    const userPassword = document.getElementById("passwordInput").value;
+    const message = document.getElementById("passwordMessage");
+
+    document.getElementById("letterContent").style.display = "block";
+
+   explodeHearts();
+
+ if (userPassword === correctPassword) {
+        message.innerHTML = "That's it!! The day we met. Now read the letter:";
+    } else {
+        message.innerHTML =
+            "Nope ?? but you'll get the letter anyway.<br>The correct password was: <strong>" +
+            correctPassword + "</strong>";
+    }
+}
+
+// ?? CŒURS QUI TOMBENT
+function createHeart() {
+    const heart = document.createElement("div");
+    heart.classList.add("heart");
+    heart.innerHTML = "♥";
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.fontSize = (15 + Math.random() * 20) + "px";
+    heart.style.animationDuration = (3 + Math.random() * 3) + "s";
+
+    document.body.appendChild(heart);
+
+    setTimeout(() => {
+        heart.remove();
+    }, 6000);
+}
+
+setInterval(createHeart, 300);
+function explodeHearts() {
+    for (let i = 0; i < 40; i++) {
+        const heart = document.createElement("div");
+        heart.classList.add("heart");
+        heart.innerHTML = "♥";
+
+        heart.style.left = (50 + Math.random() * 20 - 10) + "vw";
+        heart.style.fontSize = (20 + Math.random() * 20) + "px";
+        heart.style.animationDuration = (1 + Math.random() * 2) + "s";
+
+        document.body.appendChild(heart);
+
+        setTimeout(() => {
+            heart.remove();
+        }, 3000);
+    }
+}
+</script>
+
+</body>
+</html>
